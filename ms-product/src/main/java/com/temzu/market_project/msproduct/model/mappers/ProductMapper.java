@@ -1,7 +1,12 @@
 package com.temzu.market_project.msproduct.model.mappers;
 
+<<<<<<< HEAD
+import com.temzu.market_project.msproduct.model.dtos.ProductDto;
+import com.temzu.market_project.msproduct.model.entities.Product;
+=======
 import com.temzu.market.model.dtos.ProductDto;
 import com.temzu.market.model.entities.Product;
+>>>>>>> dev-spliting-project-into-microservices
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
