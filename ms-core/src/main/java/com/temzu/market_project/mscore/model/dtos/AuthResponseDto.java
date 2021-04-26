@@ -1,4 +1,4 @@
-package com.temzu.market_project.msauth.model.dtos;
+package com.temzu.market_project.mscore.model.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

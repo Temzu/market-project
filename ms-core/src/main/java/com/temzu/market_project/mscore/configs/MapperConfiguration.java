@@ -1,4 +1,4 @@
-package com.temzu.market_project.msproduct.configurations;
+package com.temzu.market_project.mscore.configs;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

@@ -19,10 +19,6 @@ public class Storage {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_item_id")
-    private ProductItem productItem;
-
     @Column(name = "delivery_date")
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
