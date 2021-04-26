@@ -1,6 +1,6 @@
 package com.temzu.market_project.msproduct.controllers;
 
-import com.temzu.market_project.msproduct.model.dtos.ProductDto;
+import com.temzu.market_project.mscore.model.dtos.ProductDto;
 import com.temzu.market_project.msproduct.repositories.specifications.ProductSpecifications;
 import com.temzu.market_project.msproduct.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +26,7 @@ public class ProductController {
             page = 1;
             pageSize = 10;
         }
+        System.out.println("fsdfsdfsd");
         return productService.getAllProducts(ProductSpecifications.build(params), page, pageSize);
     }
 

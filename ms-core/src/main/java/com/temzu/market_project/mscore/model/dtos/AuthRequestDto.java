@@ -1,9 +1,9 @@
-package com.temzu.market_project.msauth.model.dtos;
+package com.temzu.market_project.mscore.model.dtos;
 
 import lombok.Data;
 
 @Data
-public class SignUpRequestDto {
+public class AuthRequestDto {
     private String login;
     private String password;
 }

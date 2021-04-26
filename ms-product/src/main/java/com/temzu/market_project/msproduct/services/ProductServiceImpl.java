@@ -1,11 +1,8 @@
 package com.temzu.market_project.msproduct.services;
 
-<<<<<<< HEAD
 import com.temzu.market_project.mscore.exceptions.PageDeterminationException;
 import com.temzu.market_project.mscore.exceptions.ProductNotFoundException;
-=======
->>>>>>> dev-spliting-project-into-microservices
-import com.temzu.market_project.msproduct.model.dtos.ProductDto;
+import com.temzu.market_project.mscore.model.dtos.ProductDto;
 import com.temzu.market_project.msproduct.model.entities.Product;
 import com.temzu.market_project.msproduct.model.mappers.ProductMapper;
 import com.temzu.market_project.msproduct.repositories.ProductRepository;

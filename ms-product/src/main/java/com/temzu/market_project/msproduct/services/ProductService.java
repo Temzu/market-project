@@ -1,6 +1,6 @@
 package com.temzu.market_project.msproduct.services;
 
-import com.temzu.market_project.msproduct.model.dtos.ProductDto;
+import com.temzu.market_project.mscore.model.dtos.ProductDto;
 import com.temzu.market_project.msproduct.model.entities.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;

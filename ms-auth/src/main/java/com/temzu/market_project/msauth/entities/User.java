@@ -1,4 +1,4 @@
-package com.temzu.market_project.mscore.model;
+package com.temzu.market_project.msauth.entities;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column
     private String login;

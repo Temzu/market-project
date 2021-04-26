@@ -1,4 +1,4 @@
-package com.temzu.market_project.mscore.model;
+package com.temzu.market_project.msauth.entities;
 
 import lombok.Data;
 

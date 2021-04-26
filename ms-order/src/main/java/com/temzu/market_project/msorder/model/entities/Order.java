@@ -1,7 +1,6 @@
 package com.temzu.market_project.msorder.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.temzu.market_project.mscore.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
