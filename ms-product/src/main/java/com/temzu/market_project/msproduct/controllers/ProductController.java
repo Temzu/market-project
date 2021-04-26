@@ -26,7 +26,7 @@ public class ProductController {
             page = 1;
             pageSize = 10;
         }
-        System.out.println("fsdfsdfsd");
+        System.out.println(page);
         return productService.getAllProducts(ProductSpecifications.build(params), page, pageSize);
     }
 
@@ -36,6 +36,7 @@ public class ProductController {
         return productService.getProductDtoById(id);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDto saveProduct(@RequestBody ProductDto productDto) {
@@ -43,11 +44,13 @@ public class ProductController {
         return productService.saveOrUpdate(productDto);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
         return productService.saveOrUpdate(productDto);
     }
 
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
