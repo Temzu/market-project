@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ProductNotFoundException.class)
+    @ExceptionHandler({ItemNotFoundException.class, InvalidTokenException.class})
     public ResponseEntity<?> handleProductError(RuntimeException e) {
         MarketError err = new MarketError(HttpStatus.NOT_FOUND.value(), e.getMessage());
         return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);

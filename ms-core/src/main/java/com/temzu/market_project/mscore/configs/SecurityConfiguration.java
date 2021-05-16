@@ -1,6 +1,7 @@
 package com.temzu.market_project.mscore.configs;
 
 import com.temzu.market_project.mscore.filters.JWTAuthenticationFilter;
+import com.temzu.market_project.mscore.interfaces.RedisService;
 import com.temzu.market_project.mscore.services.JWTTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private JWTTokenService tokenService;
 
+    @Autowired
+    private RedisService redisService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -27,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new JWTAuthenticationFilter(tokenService),
+                .addFilterBefore(new JWTAuthenticationFilter(tokenService, redisService),
                         UsernamePasswordAuthenticationFilter.class);
     }
 
