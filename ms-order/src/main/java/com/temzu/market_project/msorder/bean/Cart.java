@@ -1,6 +1,6 @@
 package com.temzu.market_project.msorder.bean;
 
-import com.temzu.market_project.mscore.exceptions.ProductNotFoundException;
+import com.temzu.market_project.mscore.exceptions.ItemNotFoundException;
 import com.temzu.market_project.msorder.model.entities.OrderItem;
 import com.temzu.market_project.msproduct.model.entities.Product;
 import com.temzu.market_project.msproduct.services.ProductService;
@@ -34,7 +34,7 @@ public class Cart {
                             recalculate();
                         },
                         () -> {
-                            Product product = productService.getProductById(id).orElseThrow(() -> new ProductNotFoundException("Unable to find product with id: " + id + " (add to cart)"));
+                            Product product = productService.getProductById(id).orElseThrow(() -> new ItemNotFoundException("Unable to find product with id: " + id + " (add to cart)"));
                             OrderItem orderItem = new OrderItem(product);
                             items.add(orderItem);
                             recalculate();

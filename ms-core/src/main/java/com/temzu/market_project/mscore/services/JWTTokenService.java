@@ -3,11 +3,17 @@ package com.temzu.market_project.mscore.services;
 import com.temzu.market_project.mscore.interfaces.ITokenService;
 import com.temzu.market_project.mscore.model.UserInfo;
 import io.jsonwebtoken.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class JWTTokenService implements ITokenService {

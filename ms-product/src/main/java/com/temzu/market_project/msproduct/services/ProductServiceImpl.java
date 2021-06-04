@@ -1,7 +1,7 @@
 package com.temzu.market_project.msproduct.services;
 
 import com.temzu.market_project.mscore.exceptions.PageDeterminationException;
-import com.temzu.market_project.mscore.exceptions.ProductNotFoundException;
+import com.temzu.market_project.mscore.exceptions.ItemNotFoundException;
 import com.temzu.market_project.mscore.model.dtos.ProductDto;
 import com.temzu.market_project.msproduct.model.entities.Product;
 import com.temzu.market_project.msproduct.model.mappers.ProductMapper;
@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto getProductDtoById(Long id) {
         return mapper.toProductDto(productRepository
-                .findById(id).orElseThrow(() -> new ProductNotFoundException("Product with id: " + id + " not found")));
+                .findById(id).orElseThrow(() -> new ItemNotFoundException("Product with id: " + id + " not found")));
     }
 
     @Override
