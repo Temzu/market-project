@@ -58,7 +58,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private UsernamePasswordAuthenticationToken createToken(String authorizationHeader, String servletPath) throws ExpiredJwtException {
         String token = authorizationHeader.replace("Bearer ", "");
-        
+
         if (servletPath.equals("/logout")) {
             redisService.putInvalidToken(token);
         }

@@ -28,6 +28,11 @@ public class AuthController {
     @Autowired
     private RoleRepository roleRepository;
 
+    @GetMapping
+    public String get() {
+        return "OK";
+    }
+
     @PostMapping("/signup")
     public String signUp(@RequestBody SignUpRequestDto signUpRequest) {
         User user = new User();
