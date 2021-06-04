@@ -1,10 +1,9 @@
-package com.temzu.market_project.mscore.model.dtos;
+package com.temzu.market_project.routinglib.dtos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor

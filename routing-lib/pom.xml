@@ -9,25 +9,19 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.temzu.market_project</groupId>
-    <artifactId>ms-storage</artifactId>
+    <artifactId>routing-lib</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ms-storage</name>
+    <name>routing-lib</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
+        <spring-cloud.version>2020.0.3</spring-cloud.version>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.temzu.market_project</groupId>
-            <artifactId>ms-core</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.temzu.market_project</groupId>
-            <artifactId>routing-lib</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>3.0.3</version>
         </dependency>
     </dependencies>
 

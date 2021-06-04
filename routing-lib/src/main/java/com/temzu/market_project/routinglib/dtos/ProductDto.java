@@ -1,4 +1,4 @@
-package com.temzu.market_project.mscore.model.dtos;
+package com.temzu.market_project.routinglib.dtos;
 
 import lombok.Data;
 
