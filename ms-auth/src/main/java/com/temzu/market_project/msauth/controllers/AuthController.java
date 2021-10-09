@@ -1,19 +1,24 @@
 package com.temzu.market_project.msauth.controllers;
 
 import com.temzu.market_project.msauth.entities.User;
-import com.temzu.market_project.msauth.repositories.RoleRepository;
 import com.temzu.market_project.msauth.services.UserService;
+import com.temzu.market_project.mscore.entities.UserInfo;
 import com.temzu.market_project.mscore.interfaces.ITokenService;
-import com.temzu.market_project.mscore.interfaces.RedisService;
-import com.temzu.market_project.mscore.model.UserInfo;
-import com.temzu.market_project.mscore.model.dtos.AuthRequestDto;
-import com.temzu.market_project.mscore.model.dtos.AuthResponseDto;
-import com.temzu.market_project.mscore.model.dtos.SignUpRequestDto;
+import com.temzu.market_project.mscore.repository.RedisRepository;
+import com.temzu.market_project.routinglib.dtos.AuthRequestDto;
+import com.temzu.market_project.routinglib.dtos.AuthResponseDto;
+import com.temzu.market_project.routinglib.dtos.SignUpRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
+
+
 @RestController
+@RequestMapping("/api/v1/auth")
 public class AuthController {
 
     @Autowired
@@ -23,48 +28,39 @@ public class AuthController {
     private ITokenService tokenService;
 
     @Autowired
-    private RedisService redisService;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @GetMapping
-    public String get() {
-        return "OK";
-    }
+    private RedisRepository redisRepository;
 
     @PostMapping("/signup")
-    public String signUp(@RequestBody SignUpRequestDto signUpRequest) {
+    public String registerUser(@RequestBody SignUpRequestDto signUpRequest) {
         User user = new User();
         user.setPassword(signUpRequest.getPassword());
         user.setLogin(signUpRequest.getLogin());
-        user.setRole(roleRepository.findByName("ROLE_USER"));
+        user.setEmail(signUpRequest.getEmail());
         userService.saveUser(user);
         return "OK";
     }
 
-    @PostMapping("/login")
-    public AuthResponseDto login(@RequestBody AuthRequestDto request) {
+    @PostMapping("/signin")
+    public AuthResponseDto auth(@RequestBody AuthRequestDto request) {
         User user = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
-
         UserInfo userInfo = UserInfo.builder()
                 .userId(user.getId())
-                .userEmail(user.getLogin())
+                .userEmail(user.getEmail())
                 .role(user.getRole().getName())
                 .build();
         String token = tokenService.generateToken(userInfo);
         return new AuthResponseDto(token);
     }
 
-    @PostMapping("/logout")
-    public String logout() {
-        return "OK";
-    }
-
-    @GetMapping("/check")
+    @GetMapping("/signout")
     @PreAuthorize("hasRole('ROLE_USER')")
-    public String check() {
-        return "OK!";
+    public String logout(@RequestHeader(name="Authorization") String token) {
+        Date expirationDate = tokenService.getExpirationDate(token);
+        int ttl = (int) Duration.between(Instant.now(), expirationDate.toInstant()).toSeconds();
+        redisRepository.putToken(
+                token.replace("Bearer ", ""),
+                ttl);
+        return "Logged out";
     }
 
 }

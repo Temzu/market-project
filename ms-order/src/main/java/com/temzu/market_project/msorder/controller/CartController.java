@@ -1,32 +1,45 @@
 package com.temzu.market_project.msorder.controller;
 
-import com.temzu.market_project.mscore.model.dtos.CartDto;
-import com.temzu.market_project.msorder.bean.Cart;
+import com.temzu.market_project.mscore.entities.UserInfo;
+import com.temzu.market_project.mscore.interfaces.ITokenService;
+import com.temzu.market_project.msorder.services.CartService;
+import com.temzu.market_project.routinglib.dtos.CartDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
 public class CartController {
 
-    private final Cart cart;
+    private final CartService cartService;
 
-    @GetMapping
-    public CartDto getCart() {
-        return new CartDto();
+    private final ITokenService tokenService;
+
+    @PostMapping
+    public UUID createNewCart(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String token) {
+        if (token == null) {
+            return cartService.getCartForUser(null, null);
+        }
+        UserInfo userInfo = tokenService.parseToken(token.replace("Bearer ",""));
+        return cartService.getCartForUser(userInfo.getUserId(), null);
     }
 
-    @GetMapping("/add/{id}")
-    public void addToCart(@PathVariable Long id) {
-        cart.addToCart(id);
+    @GetMapping("/{uuid}")
+    public CartDto getCurrentCart(@PathVariable UUID uuid) {
+        return cartService.findById(uuid);
     }
 
-    @GetMapping("/clear")
-    public void clearCart() {
-        cart.clear();
+    @PostMapping("/add")
+    public void addProductToCart(@RequestParam UUID uuid, @RequestParam(name = "product_id") Long productId) {
+        cartService.addToCart(uuid, productId);
+    }
+
+    @PostMapping("/clear")
+    public void clearCart(@RequestParam UUID uuid) {
+        cartService.clearCart(uuid);
     }
 }

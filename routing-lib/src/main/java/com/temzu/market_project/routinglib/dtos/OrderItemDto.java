@@ -1,17 +1,18 @@
 package com.temzu.market_project.routinglib.dtos;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Data
-@NoArgsConstructor
 public class OrderItemDto {
 
     private String productTitle;
 
     private int quantity;
 
-    private int pricePerItem;
+    private int pricePerProduct;
 
-    private int price;
+    private BigDecimal price;
+
 }

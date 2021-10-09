@@ -1,6 +1,10 @@
+jwt:
+  secret: secret
 spring:
   redis:
     host: localhost
     port: 6379
   session:
     store-type: redis
+    redis:
+      flush-mode: immediate

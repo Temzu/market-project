@@ -1,24 +1,21 @@
 package com.temzu.market_project.mscore.services;
 
+import com.temzu.market_project.mscore.entities.UserInfo;
 import com.temzu.market_project.mscore.interfaces.ITokenService;
-import com.temzu.market_project.mscore.model.UserInfo;
 import io.jsonwebtoken.*;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class JWTTokenService implements ITokenService {
 
-    private final String JWT_SECRET = "3b2648762a13d3f6be076edb7f70fa391e83049e1eaef30448eecc4effd31e74f7eaa092196868d677986ab5f12afd579a894d0daa0716da1d72c443a539976e";
+    @Value("$(jwt.secret)")
+    private String JWT_SECRET;
 
     @Override
     public String generateToken(UserInfo user) {
@@ -34,6 +31,16 @@ public class JWTTokenService implements ITokenService {
                 .compact();
 
         return "Bearer " + compactTokenString;
+    }
+
+    @Override
+    public Date getExpirationDate(String header){
+        String token = header.replace("Bearer ", "");
+        Jws<Claims> jwsClaims = Jwts.parser()
+                .setSigningKey(JWT_SECRET)
+                .parseClaimsJws(token);
+
+        return jwsClaims.getBody().getExpiration();
     }
 
     @Override
@@ -57,4 +64,5 @@ public class JWTTokenService implements ITokenService {
                 .role(role)
                 .build();
     }
+
 }

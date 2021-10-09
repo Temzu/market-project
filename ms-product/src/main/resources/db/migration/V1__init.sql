@@ -1,44 +1,32 @@
-create table categories
+CREATE TABLE products
 (
-    id   bigserial primary key,
-    name varchar(255)
+    id bigserial NOT NULL,
+    title character varying NOT NULL,
+    price numeric(9, 2) NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone,
+    deleted_at timestamp with time zone,
+    PRIMARY KEY (id)
 );
-insert into categories (name)
-values ('Foodstuffs'),
-       ('Alcohol'),
-       ('Сomputers_equipments'),
-       ('Household_products'),
-       ('Phones'),
-       ('School_supplies');
 
-create table products
+CREATE TABLE categories
 (
-    id          bigserial primary key,
-    title       varchar(255),
-    price       int,
-    category_id bigint,
-    created_at  timestamp default current_timestamp,
-    updated_at  timestamp default current_timestamp,
-    FOREIGN KEY (category_id) REFERENCES categories (id)
+    id bigserial NOT NULL,
+    title character varying NOT NULL,
+    created_at timestamp with time zone NOT NULL,
+    updated_at timestamp with time zone,
+    deleted_at timestamp with time zone,
+    PRIMARY KEY (id)
 );
-insert into products (title, price, category_id)
-values ('Meat', 80, 1),
-       ('Apple', 50, 1),
-       ('Orange', 60, 1),
-       ('Chocolate', 100, 1),
-       ('Mineral water', 35, 1),
-       ('Bread', 35, 1),
-       ('Parsley', 70, 1),
-       ('Kefir', 70, 1),
-       ('Monitor', 23000, 3),
-       ('Computer', 53000, 3),
-       ('Mouse', 2000, 3),
-       ('Keyboard', 3000, 3),
-       ('Table', 6000, 4),
-       ('Phone', 30000, 5),
-       ('Window', 5500, 3),
-       ('Pen', 300, 6),
-       ('Scissors', 400, 6),
-       ('Tea', 90, 1),
-       ('Milk', 60, 1),
-       ('Jack daniels', 900, 2);
+
+CREATE TABLE products_categories (
+                                     product_id bigint REFERENCES products (id),
+                                     category_id bigint REFERENCES categories (id));
+
+
+INSERT INTO categories (title, created_at) VALUES ('food', now());
+
+INSERT INTO products (title, price, created_at)
+VALUES ('cheese', 102.99, now());
+
+INSERT INTO products_categories (product_id, category_id) VALUES (1,1);

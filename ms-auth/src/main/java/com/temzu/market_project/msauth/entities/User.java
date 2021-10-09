@@ -1,24 +1,30 @@
 package com.temzu.market_project.msauth.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
 @Entity
-@Table(name = "user_table")
+@Data
+@Table(name = "users")
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column
-    private String login;
-
-    @Column
-    private String password;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @Column(name = "login")
+    private String login;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "email")
+    private String email;
 }
