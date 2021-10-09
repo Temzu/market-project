@@ -1,4 +1,4 @@
-package ru.geekbrains.market2.frontserver;
+package com.temzu.market_project.frontserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
